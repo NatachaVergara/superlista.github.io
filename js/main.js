@@ -2,24 +2,73 @@
 /**VARIABLES GOBALES */
 /**------------------------ */
 
-const listaProductos = [
+let listaProductos = [
     { nombre: 'carne', cantidad: 2, precio: 12.34 },
     { nombre: 'Pan', cantidad: 5, precio: 100 },
     { nombre: 'Fideos', cantidad: 8, precio: 50 },
     { nombre: 'Leche', cantidad: 1, precio: 18 },
 ]
 
-
+let ul = document.querySelector('.ul')
+let btnBorrar = document.querySelector('#btn-borrar')
+let btnEntradaProducto = document.querySelector('#btn-entrada-producto')
 /**------------------------ */
 /**FUNCIONES GOBALES */
 /**------------------------ */
 
+
+const borrarProd = (index) => {
+    listaProductos.splice(index, 1)
+    renderLista()
+}
+
+const cambiarCantidad = (index, el) => {
+    const cantidad = Number(el.value)
+    console.log(`Cambiar cantidad`, index, cantidad)
+    listaProductos[index].cantidad = cantidad
+}
+
+const cambiarPrecio = (index, el) => {
+    const precio = Number(el.value)
+    console.log(`Cambiar precio`, index, precio)
+    listaProductos[index].precio = precio
+}
+
+
+btnEntradaProducto.addEventListener('click', () => {
+    let input = document.querySelector('#ingreso-producto')
+    let producto = input.value
+    console.log(producto)
+
+    if (producto) {
+        listaProductos.push({ nombre: producto, cantidad: 1, precio: 0 })
+        renderLista()
+        
+        input.value = ''
+
+    } else {
+        alert('Debe ingresar un producto')
+    }
+
+
+})
+
+
+
+btnBorrar.addEventListener('click', () => {
+    if (confirm('Desea borrar todos los productos?')) {
+        listaProductos = []
+        renderLista()
+    }
+   
+})
+
+
+
+
 const renderLista = () => {
-
-    const ul = document.createElement('ul')
-    ul.classList.add('demo-list-icon', 'mdl-list', 'w-100')
-
-    listaProductos.map((e, index) => {
+    ul.innerHTML = '';    
+    listaProductos.map((e, index) => (
         ul.innerHTML += `               
                     <!-- Product List -->
                     <li class="mdl-list__item">
@@ -35,14 +84,14 @@ const renderLista = () => {
                         <!-- Simple Textfield -->
                         <span class="mdl-list__item-primary-content w-20 ml-item">
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                <input class="mdl-textfield__input" type="text" id="sample-${index}" value="${e.nombre}" placeholder="Sample">
+                                <input class="mdl-textfield__input" onChange="cambiarCantidad(${index}, this)" type="text" id="sample-${index}" value="${e.cantidad}" placeholder="Sample">
                                 <label class="mdl-textfield__label" for="sample-cantidad">Cantidad</label>
                             </div>
                         </span>
                         <!-- precio -->
                         <span class="mdl-list__item-primary-content w-20 ml-item">
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                <input class="mdl-textfield__input" type="text" id="sample-${index}" value="${e.precio}">
+                                <input class="mdl-textfield__input" type="text" id="sample-${index}" onChange="cambiarPrecio(${index}, this)" value="${e.precio}">
                                 <label class="mdl-textfield__label" for="sample-precio">Precio</label>
                             </div>
                         </span>
@@ -50,7 +99,7 @@ const renderLista = () => {
                         <!-- accion(borrar) -->
                         <span class="mdl-list__item-primary-content w-20 ml-item">
                             <!-- Colored FAB button with ripple -->
-                            <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+                     <button onClick="borrarProd(${index})"  class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored"  >
                                 <i class="material-icons">remove_shopping_cart</i>
                             </button>
                         </span>
@@ -58,9 +107,9 @@ const renderLista = () => {
                     </li>
                 `
 
-    })
-    document.getElementById('lista').appendChild(ul)
-
+    ))
+        //No está funcionando!
+    ///componentHandler.upgradeElement(ul)
 
 
 }

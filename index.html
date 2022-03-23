@@ -45,11 +45,36 @@
         <main class="mdl-layout__content">
             <div class="page-content">
                 <!-- Your content goes here -->
-
-
+                <!-- Ingresar un producto -->
+                <div class="container">
+                    <div  class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label w-40">
+                        <input class="mdl-textfield__input" id="ingreso-producto" type="text" >
+                        <label class="mdl-textfield__label" for="ingreso-producto">Ingrese su producto</label>
+                    </div>
+                    <!-- btn para agregar un producto -->
+                    <div class="w-30">
+                        <button id="btn-entrada-producto"
+                            class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--primary">
+                            <i class="material-icons">add_shopping_cart</i>
+                        </button>
+                    </div>
+                    <!-- btn para borrar todos los productos -->
+                    <div class="w-30">
+                        <button id="btn-borrar"
+                            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                            Borrar Lista
+                        </button>
+                    </div>
+                </div>
                 <!-- Listado de productos -->
-                <div class="" id="lista"></div>
+                <div class="" id="lista">
+                    <ul class="demo-list-icon mdl-list w-100 ul">
+
+                    </ul>
+
+                </div>
             </div>
+
         </main>
     </div>
 
